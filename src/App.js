@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+import PairCard from "./components/PairCard";
 import "./App.css";
 
 function App() {
   const [scoreBoard, setScoreBoard] = useState([]);
+  const [finished, setFinishedBoard] = useState([]);
   const [home, setHome] = useState("");
   const [away, setAway] = useState("");
-  const [inProgress, setInProgress] = useState(false);
+
   const [scoreHome, setScoreHome] = useState(0);
   const [scoreAway, setScoreAway] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
-  const [newHomeScore, setNewHomeScore] = useState(0);
-  const [newAwayScore, setNewAwayScore] = useState(0);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -28,12 +29,12 @@ function App() {
     setAway("");
   };
 
-  const editScore = (editId) => {
-    setIsEditing(!isEditing);
+  const finishTheGame = (doneId) => {
+    console.log("finished the game");
     setScoreBoard(
       scoreBoard.map((p) => {
-        if (p.id === +editId) {
-          return { ...p, scoreHome: newHomeScore, scoreAway: newAwayScore };
+        if (p.id === +doneId) {
+          return { ...p, inProgress: false };
         }
         return p;
       })
@@ -69,40 +70,35 @@ function App() {
         </div>
       </form>
 
+      <h1>Live (in Progress)</h1>
       {scoreBoard.length > 0 &&
-        scoreBoard.map(({ home, away, scoreHome, scoreAway, date, id }) => {
-          return (
-            <div key={id}>
-              <span>{home}</span>
-              {isEditing ? (
-                <input
-                  type="number"
-                  className="form-control mb-2 grocery"
-                  value={newHomeScore}
-                  onChange={(e) => setNewHomeScore(e.target.value)}
-                />
-              ) : (
-                <span>{scoreHome}</span>
-              )}
-
-              {"   "}
-              <span>{away}</span>
-              {isEditing ? (
-                <input
-                  type="number"
-                  className="form-control mb-2 grocery"
-                  value={newAwayScore}
-                  onChange={(e) => setNewAwayScore(e.target.value)}
-                />
-              ) : (
-                <span>{scoreAway}</span>
-              )}
-              <button onClick={() => editScore(id)}>
-                {isEditing ? "Set" : "Edit Score"}
-              </button>
-            </div>
-          );
-        })}
+        scoreBoard.map((pair) =>
+          pair.inProgress ? (
+            <PairCard
+              inProgress={pair.inProgress}
+              setScoreBoard={setScoreBoard}
+              scoreBoard={scoreBoard}
+              key={pair.id}
+              finishTheGame={finishTheGame}
+              pair={pair}
+              isEditing={isEditing}
+            />
+          ) : null
+        )}
+      <h1>Finished games</h1>
+      {scoreBoard.length > 0 &&
+        scoreBoard.map((pair) =>
+          pair.inProgress ? null : (
+            <PairCard
+              setScoreBoard={setScoreBoard}
+              scoreBoard={scoreBoard}
+              key={pair.id}
+              finishTheGame={finishTheGame}
+              pair={pair}
+              isEditing={isEditing}
+            />
+          )
+        )}
     </React.Fragment>
   );
 }
