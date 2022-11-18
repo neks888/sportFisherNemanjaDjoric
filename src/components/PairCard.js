@@ -48,10 +48,12 @@ function PairCard({ finishTheGame, pair, setScoreBoard, scoreBoard }) {
         <span>{scoreAway}</span>
       )}
       <React.Fragment>
-        <button onClick={() => editScore(id)}>
+        <button className="btn btn-info" onClick={() => editScore(id)}>
           {isEditing ? "Set" : "Edit Score"}
         </button>
-        <button onClick={() => finishTheGame(id)}>Finish game</button>
+        <button className="btn btn-danger" onClick={() => finishTheGame(id)}>
+          Finish game
+        </button>
       </React.Fragment>
     </div>
   ) : (

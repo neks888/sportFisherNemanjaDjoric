@@ -19,7 +19,7 @@ function App() {
       id: Math.random(),
       home,
       away,
-      date: new Date().getTime().toString(),
+      date: new Date().now,
       scoreHome,
       scoreAway,
       inProgress: true,
@@ -42,8 +42,8 @@ function App() {
   };
   console.log(scoreHome, scoreAway);
   return (
-    <React.Fragment>
-      <form className="form-group grocery-form" onSubmit={handleSubmit}>
+    <div style={{ width: "18rem", margin: "0 auto" }}>
+      <form className="form-group " onSubmit={handleSubmit}>
         <h3>Score</h3>
         <div>
           <label htmlFor="start">Home team:</label>
@@ -64,7 +64,7 @@ function App() {
             onChange={(e) => setAway(e.target.value)}
           />
 
-          <button type="submit" className="submit-btn">
+          <button type="submit" className="btn btn-success">
             Create
           </button>
         </div>
@@ -87,21 +87,19 @@ function App() {
         )}
       <h1>Finished games</h1>
       {scoreBoard.length > 0 &&
-        scoreBoard
-          .map((pair) =>
-            pair.inProgress ? null : (
-              <PairCard
-                key={pair.id}
-                setScoreBoard={setScoreBoard}
-                scoreBoard={scoreBoard}
-                finishTheGame={finishTheGame}
-                pair={pair}
-                isEditing={isEditing}
-              />
-            )
+        scoreBoard.map((pair) =>
+          pair.inProgress ? null : (
+            <PairCard
+              key={pair.id}
+              setScoreBoard={setScoreBoard}
+              scoreBoard={scoreBoard}
+              finishTheGame={finishTheGame}
+              pair={pair}
+              isEditing={isEditing}
+            />
           )
-          .sort((a, b) => a.date - b.date)}
-    </React.Fragment>
+        )}
+    </div>
   );
 }
 
