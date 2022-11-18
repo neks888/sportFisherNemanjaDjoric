@@ -72,33 +72,37 @@ function App() {
 
       <h1>Live (in Progress)</h1>
       {scoreBoard.length > 0 &&
-        scoreBoard.map((pair) =>
-          pair.inProgress ? (
-            <PairCard
-              inProgress={pair.inProgress}
-              setScoreBoard={setScoreBoard}
-              scoreBoard={scoreBoard}
-              key={pair.id}
-              finishTheGame={finishTheGame}
-              pair={pair}
-              isEditing={isEditing}
-            />
-          ) : null
+        scoreBoard.map(
+          (pair) =>
+            pair.inProgress && (
+              <PairCard
+                inProgress={pair.inProgress}
+                setScoreBoard={setScoreBoard}
+                scoreBoard={scoreBoard}
+                key={pair.id}
+                finishTheGame={finishTheGame}
+                pair={pair}
+                isEditing={isEditing}
+              />
+            )
         )}
       <h1>Finished games</h1>
       {scoreBoard.length > 0 &&
-        scoreBoard.map((pair) =>
-          pair.inProgress ? null : (
-            <PairCard
-              key={pair.id}
-              setScoreBoard={setScoreBoard}
-              scoreBoard={scoreBoard}
-              finishTheGame={finishTheGame}
-              pair={pair}
-              isEditing={isEditing}
-            />
+        scoreBoard
+          .map(
+            (pair) =>
+              !pair.inProgress && (
+                <PairCard
+                  key={pair.id}
+                  setScoreBoard={setScoreBoard}
+                  scoreBoard={scoreBoard}
+                  finishTheGame={finishTheGame}
+                  pair={pair}
+                  isEditing={isEditing}
+                />
+              )
           )
-        )}
+          .sort((a, b) => b.date - a.date)}
     </div>
   );
 }
