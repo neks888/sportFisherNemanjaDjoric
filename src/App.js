@@ -87,18 +87,20 @@ function App() {
         )}
       <h1>Finished games</h1>
       {scoreBoard.length > 0 &&
-        scoreBoard.map((pair) =>
-          pair.inProgress ? null : (
-            <PairCard
-              setScoreBoard={setScoreBoard}
-              scoreBoard={scoreBoard}
-              key={pair.id}
-              finishTheGame={finishTheGame}
-              pair={pair}
-              isEditing={isEditing}
-            />
+        scoreBoard
+          .map((pair) =>
+            pair.inProgress ? null : (
+              <PairCard
+                key={pair.id}
+                setScoreBoard={setScoreBoard}
+                scoreBoard={scoreBoard}
+                finishTheGame={finishTheGame}
+                pair={pair}
+                isEditing={isEditing}
+              />
+            )
           )
-        )}
+          .sort((a, b) => a.date - b.date)}
     </React.Fragment>
   );
 }

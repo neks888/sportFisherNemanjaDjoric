@@ -19,7 +19,7 @@ function PairCard({ finishTheGame, pair, setScoreBoard, scoreBoard }) {
     );
   };
 
-  return (
+  const output = inProgress ? (
     <div key={id}>
       <span>{home}</span> - <span>{away}</span>:{" "}
       {isEditing ? (
@@ -47,18 +47,21 @@ function PairCard({ finishTheGame, pair, setScoreBoard, scoreBoard }) {
       ) : (
         <span>{scoreAway}</span>
       )}
-      {inProgress === true ? (
-        <React.Fragment>
-          <button onClick={() => editScore(id)}>
-            {isEditing ? "Set" : "Edit Score"}
-          </button>
-          <button onClick={() => finishTheGame(id)}>Finish game</button>
-        </React.Fragment>
-      ) : (
-        ""
-      )}
+      <React.Fragment>
+        <button onClick={() => editScore(id)}>
+          {isEditing ? "Set" : "Edit Score"}
+        </button>
+        <button onClick={() => finishTheGame(id)}>Finish game</button>
+      </React.Fragment>
+    </div>
+  ) : (
+    <div>
+      <span>{home}</span> <span>{scoreHome}</span> - <span>{away}</span>
+      <span>{scoreAway}</span>
     </div>
   );
+
+  return output;
 }
 
 export default PairCard;
