@@ -4,10 +4,8 @@ import "./App.css";
 
 function App() {
   const [scoreBoard, setScoreBoard] = useState([]);
-  const [finished, setFinishedBoard] = useState([]);
   const [home, setHome] = useState("");
   const [away, setAway] = useState("");
-
   const [scoreHome, setScoreHome] = useState(0);
   const [scoreAway, setScoreAway] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
@@ -30,7 +28,6 @@ function App() {
   };
 
   const finishTheGame = (doneId) => {
-    console.log("finished the game");
     setScoreBoard(
       scoreBoard.map((p) => {
         if (p.id === +doneId) {
@@ -40,9 +37,8 @@ function App() {
       })
     );
   };
-  console.log(scoreHome, scoreAway);
   return (
-    <div style={{ width: "18rem", margin: "0 auto" }}>
+    <div style={{ width: "30rem", margin: "0 auto" }}>
       <form className="form-group " onSubmit={handleSubmit}>
         <h3>Score</h3>
         <div>

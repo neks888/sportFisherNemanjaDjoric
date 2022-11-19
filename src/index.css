@@ -17,3 +17,6 @@ h1 {
 
   margin: 2rem auto;
 }
+span {
+  display: inline-block;
+}
