@@ -12,7 +12,10 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    if (!home || !away) {
+      alert("Away and/home Fields must not be empty");
+      return;
+    }
     const newPair = {
       id: Math.random(),
       home,
